@@ -7,7 +7,7 @@ namespace Assets.Scripts.Infrastructure
     {
         private void Awake()
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Level1");
         }
     }
 }

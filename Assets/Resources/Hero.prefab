@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3602504621809321633}
   - component: {fileID: 1319700276}
   - component: {fileID: 5337005844493077006}
+  - component: {fileID: 8228983749390009415}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -127,5 +128,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 0
-  _regularMoveSpeed: 0
   _characterController: {fileID: 1319700276}
+--- !u!114 &8228983749390009415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961735378413729360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4dce6bc27728240a8e5d9fd6e52782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 3961735378413729363}

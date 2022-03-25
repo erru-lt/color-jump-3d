@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Services.InputService;
+using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
@@ -11,7 +12,7 @@ public class HeroMovement : MonoBehaviour
 
     private float _gravity;
     private float _verticalJumpVelocity;
-    private readonly float _maxJumpHeight = 2.0f;
+    private readonly float _maxJumpHeight = 3.0f;
     private readonly float _maxJumpTime = 1f;
     private readonly float _doubleMultiplier = 2.0f;
     private readonly float _groundedGravity = -0.5f;
