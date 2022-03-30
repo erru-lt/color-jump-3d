@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Services.InputService;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.StaticData;
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
@@ -11,6 +11,7 @@ namespace Assets.Scripts.Hero
     public class HeroColorChange : MonoBehaviour
     {
         [SerializeField] private MeshRenderer _meshRenderer;
+
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
 
@@ -41,7 +42,7 @@ namespace Assets.Scripts.Hero
 
             for (int i = 0; i < levelStaticData.PlatformColors.Length; i++)
             {
-                if(_meshRenderer.material.color != levelStaticData.PlatformColors[i])
+                if(_meshRenderer.sharedMaterial.color != levelStaticData.PlatformColors[i])
                 {
                     SwapColors(levelStaticData.PlatformColors[i]);
                     break;
@@ -49,15 +50,15 @@ namespace Assets.Scripts.Hero
             }
         }
 
-        private void SwapColors(Color color) => 
-            _meshRenderer.material.color = color;
-
         private void HeroStartColor()
         {
             LevelStaticData levelStaticData = LevelData();
 
-            _meshRenderer.material.color = levelStaticData.StartColor;
+            _meshRenderer.sharedMaterial.color = levelStaticData.StartColor;
         }
+
+        private void SwapColors(Color color) => 
+            _meshRenderer.sharedMaterial.color = color;
 
         private LevelStaticData LevelData() =>
             _staticDataService.LevelData(SceneManager.GetActiveScene().name);

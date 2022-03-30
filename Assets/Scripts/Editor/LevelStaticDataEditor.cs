@@ -4,12 +4,16 @@ using Assets.Scripts.StaticData;
 using Assets.Scripts.Logic;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Editor
 {
     [CustomEditor(typeof(LevelStaticData))]
     public class LevelStaticDataEditor : UnityEditor.Editor
     {
+        private const string HeroInitialPointTag = "HeroInitialPoint";
+        private const string InitialPlatformTag = "InitialPlatform";
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -18,9 +22,11 @@ namespace Assets.Scripts.Editor
 
             if(GUILayout.Button("Collect"))
             {
-                levelStaticData.PlatformColors = FindObjectsOfType<Platform>().Select(x => x.GetComponent<MeshRenderer>().material.color).ToArray();
+                levelStaticData.PlatformColors = FindObjectsOfType<Platform>().Select(x => x.GetComponent<MeshRenderer>().sharedMaterial.color).ToArray();
+                
 
-                levelStaticData.StartColor = GameObject.FindGameObjectWithTag("InitialPlatform").GetComponent<MeshRenderer>().material.color;
+                levelStaticData.HeroInitialPoint = GameObject.FindGameObjectWithTag(HeroInitialPointTag).transform.position;
+                levelStaticData.StartColor = GameObject.FindGameObjectWithTag(InitialPlatformTag).GetComponent<MeshRenderer>().sharedMaterial.color;
                 levelStaticData.LevelName = SceneManager.GetActiveScene().name;
             }
 

@@ -11,7 +11,7 @@ namespace Assets.Scripts.Services.InputService
             SimpleInput.GetButtonDown(ChangeColor);
 
         public bool IsJumpButtonDown() =>
-            SimpleInput.GetButton(Jump);
+            SimpleInput.GetButtonDown(Jump);
 
         public bool IsJumpButtonUp() =>
             SimpleInput.GetButtonUp(Jump);

@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Assets.Scripts.Infrastructure
+namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 {
     public class SceneInstaller : MonoInstaller
     {
