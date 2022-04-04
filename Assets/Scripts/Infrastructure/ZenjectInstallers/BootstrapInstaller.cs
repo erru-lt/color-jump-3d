@@ -3,6 +3,9 @@ using Assets.Scripts.Infrastructure.Factory;
 using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Services.InputService;
 using Assets.Scripts.Services.StaticDataService;
+using Assets.Scripts.Services.WindowService;
+using Assets.Scripts.UI.UIFactory;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -12,13 +15,16 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
     {
         public override void InstallBindings()
         {
-            BindGameStateMachine();
             BindSceneLoader();
             BindInputService();
             BindAssetProviderService();
             BindGameFactory();
             BindStaticDataService();
+            BindWindowService();
+            BindUIFactory();
+            BindGameStateMachine();
         }
+
 
         private void BindGameStateMachine() => 
             Container.Bind<IGameStateMachine>().To<GameStateMachine>().AsSingle();
@@ -44,5 +50,11 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
             staticDataService.Load();
             Container.Bind<IStaticDataService>().FromInstance(staticDataService).AsSingle();
         }
+
+        private void BindWindowService() => 
+            Container.Bind<IWindowService>().To<WindowService>().AsSingle();
+
+        private void BindUIFactory() => 
+            Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
     }
 }

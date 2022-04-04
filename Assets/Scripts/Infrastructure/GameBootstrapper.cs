@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Infrastructure.StateMachine;
+using Assets.Scripts.Infrastructure.States;
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Infrastructure
         private SceneLoader _sceneLoader;
         private IGameStateMachine _gameStateMachine;
 
-        
+        [Inject]
         public void Construct(IGameStateMachine gameStateMachine, SceneLoader sceneLoader)
         {
             _sceneLoader = sceneLoader;
@@ -22,7 +22,7 @@ namespace Assets.Scripts.Infrastructure
 
         private void Awake()
         {
-               
+            _gameStateMachine.Enter<LoadProgressState>();
         }
         
     }

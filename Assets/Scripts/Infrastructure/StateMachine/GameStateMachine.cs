@@ -1,6 +1,10 @@
-﻿using Assets.Scripts.Infrastructure.States;
+﻿using Assets.Scripts.Infrastructure.Factory;
+using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.Services.StaticDataService;
+using Assets.Scripts.UI.UIFactory;
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace Assets.Scripts.Infrastructure.StateMachine
 {
@@ -9,12 +13,13 @@ namespace Assets.Scripts.Infrastructure.StateMachine
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine()
+        [Inject]
+        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(LoadProgressState)] = new LoadProgressState(),
-                [typeof(LoadLevelState)] = new LoadLevelState()
+                [typeof(LoadProgressState)] = new LoadProgressState(this),
+                [typeof(LoadLevelState)] = new LoadLevelState(gameFactory, staticDataService, uiFactory, sceneLoader)
             };
         }
 
@@ -25,7 +30,14 @@ namespace Assets.Scripts.Infrastructure.StateMachine
             state.Enter();
         }
 
-        private TState ChangeState<TState>() where TState : class, IState
+        public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
+        {
+            TState state = ChangeState<TState>();
+
+            state.Enter(payload);
+        }
+
+        private TState ChangeState<TState>() where TState : class, IExitableState
         {
             _activeState?.Exit();
 
@@ -35,7 +47,7 @@ namespace Assets.Scripts.Infrastructure.StateMachine
             return state;
         }
 
-        private TState GetState<TState>() where TState : class, IState =>
+        private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
     }
 }

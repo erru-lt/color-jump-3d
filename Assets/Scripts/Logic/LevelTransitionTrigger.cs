@@ -20,6 +20,7 @@ namespace Assets.Scripts.Logic
             if (hero != null)
             {
                 _sceneLoader.Load("Level2");
+                Destroy(hero.gameObject);
             }
         }
     }

@@ -19,7 +19,7 @@ namespace Assets.Scripts.Infrastructure.Factory
         public GameObject CreateHero(Vector3 position)
         {
             GameObject heroPrefab = _assetProvider.LoadPrefab(AssetPath.HeroPrefabPath);
-
+        
             return _diContainer.InstantiatePrefab(heroPrefab, position, Quaternion.identity, null);
         }
     }

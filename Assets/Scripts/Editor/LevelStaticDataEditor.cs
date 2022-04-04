@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using Assets.Scripts.StaticData;
-using Assets.Scripts.Logic;
+using Assets.Scripts.Logic.Platforms;
 using System.Linq;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
 
 namespace Assets.Scripts.Editor
 {

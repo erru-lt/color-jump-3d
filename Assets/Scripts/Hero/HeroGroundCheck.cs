@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Logic;
+﻿using Assets.Scripts.Logic.Platforms;
 using System;
 using UnityEngine;
 

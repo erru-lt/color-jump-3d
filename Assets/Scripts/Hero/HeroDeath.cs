@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Logic;
+﻿using Assets.Scripts.Logic.Platforms;
 using UnityEngine;
 
 namespace Assets.Scripts.Hero
@@ -7,6 +7,14 @@ namespace Assets.Scripts.Hero
     {
         [SerializeField] private MeshRenderer _meshRenderer;
         private bool _isDeath;
+
+        public void CheckColorMatch(MeshRenderer meshRenderer)
+        {
+            if (_meshRenderer.material.color != meshRenderer.material.color)
+            {
+                Die();
+            }
+        }
 
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
@@ -19,12 +27,10 @@ namespace Assets.Scripts.Hero
             }
         }
 
-        private void CheckColorMatch(MeshRenderer meshRenderer)
+        private void Die()
         {
-            if (_meshRenderer.material.color != meshRenderer.material.color)
-            {
-                _isDeath = true;
-            }
+            _isDeath = true;
+            Destroy(gameObject);
         }
     }
 }
