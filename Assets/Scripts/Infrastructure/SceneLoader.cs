@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Assets.Scripts.Logic;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Assets.Scripts.Infrastructure
 {
@@ -20,6 +22,7 @@ namespace Assets.Scripts.Infrastructure
             if(SceneManager.GetActiveScene().name == sceneName)
             {
                 onLoaded?.Invoke();
+                yield break;
             }
 
             AsyncOperation waitForNextScene = SceneManager.LoadSceneAsync(sceneName);

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Infrastructure.AssetManagement;
 using Assets.Scripts.Infrastructure.Factory;
 using Assets.Scripts.Infrastructure.StateMachine;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services.InputService;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.Services.WindowService;
@@ -13,6 +14,8 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 {
     public class BootstrapInstaller : MonoInstaller, ICoroutineRunner
     {
+        [SerializeField] private LoadingScreen _loadingScreenPrefab;
+
         public override void InstallBindings()
         {
             BindSceneLoader();
@@ -23,6 +26,7 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
             BindWindowService();
             BindUIFactory();
             BindGameStateMachine();
+            BindLoadingScreen();
         }
 
 
@@ -56,5 +60,12 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 
         private void BindUIFactory() => 
             Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
+
+        private void BindLoadingScreen()
+        {
+            LoadingScreen loadingScreen = Container.InstantiatePrefabForComponent<LoadingScreen>(_loadingScreenPrefab);
+
+            Container.Bind<LoadingScreen>().FromInstance(loadingScreen).AsSingle();
+        }
     }
 }

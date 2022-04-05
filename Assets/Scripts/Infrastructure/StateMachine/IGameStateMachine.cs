@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.Infrastructure.States.StateInterfaces;
 
 namespace Assets.Scripts.Infrastructure.StateMachine
 {

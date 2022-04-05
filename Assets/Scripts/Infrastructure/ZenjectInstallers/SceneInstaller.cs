@@ -1,4 +1,6 @@
-﻿using Zenject;
+﻿using Assets.Scripts.Logic;
+using UnityEngine;
+using Zenject;
 
 namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 {

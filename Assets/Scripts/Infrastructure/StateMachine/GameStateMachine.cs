@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Infrastructure.Factory;
 using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.Infrastructure.States.StateInterfaces;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.UI.UIFactory;
 using System;
@@ -14,12 +16,13 @@ namespace Assets.Scripts.Infrastructure.StateMachine
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
+        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader, LoadingScreen loadingScreen)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(LoadProgressState)] = new LoadProgressState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(gameFactory, staticDataService, uiFactory, sceneLoader)
+                [typeof(LoadLevelState)] = new LoadLevelState(this, gameFactory, staticDataService, uiFactory, sceneLoader, loadingScreen),
+                [typeof(GameLoopState)] = new GameLoopState(),
             };
         }
 

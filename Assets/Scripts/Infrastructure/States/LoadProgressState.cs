@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Infrastructure.StateMachine;
+using Assets.Scripts.Infrastructure.States.StateInterfaces;
 using UnityEngine;
 using Zenject;
 
@@ -18,8 +19,10 @@ namespace Assets.Scripts.Infrastructure.States
             _gameStateMachine.Enter<LoadLevelState, string>(Level1);
         }
 
-        private void LoadProgress() => 
-            Debug.Log("Progress loaded");
+        private void LoadProgress()
+        {
+
+        }
 
         public void Exit()
         {

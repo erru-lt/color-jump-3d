@@ -33,10 +33,12 @@ namespace Assets.Scripts.UI.UIFactory
             ShopWindow shopWindow = Object.Instantiate(shopWindowConfig.WindowPrefab, _uiRoot) as ShopWindow;
         }
 
-        public void CreateUIRoot()
+        public Transform CreateUIRoot()
         {
             GameObject uiRootPrefab = _assetProvider.LoadPrefab(AssetPath.UIRootPath);
             _uiRoot = Object.Instantiate(uiRootPrefab).transform;
+
+            return _uiRoot;
         }
     }
 }

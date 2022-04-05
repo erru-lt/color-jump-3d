@@ -73,3 +73,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442cb54d5f21aa6479bdaa055867d222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loadingScreenPrefab: {fileID: 6492515162329209126, guid: 50fdd64fafbe3084fa05f075d820b91b,
+    type: 3}
