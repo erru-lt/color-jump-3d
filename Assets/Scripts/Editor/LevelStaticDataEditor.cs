@@ -12,6 +12,7 @@ namespace Assets.Scripts.Editor
     {
         private const string HeroInitialPointTag = "HeroInitialPoint";
         private const string InitialPlatformTag = "InitialPlatform";
+        private const string LevelEndpointTag = "LevelEndpoint";
 
         public override void OnInspectorGUI()
         {
@@ -25,10 +26,12 @@ namespace Assets.Scripts.Editor
                 
 
                 levelStaticData.HeroInitialPoint = GameObject.FindGameObjectWithTag(HeroInitialPointTag).transform.position;
+                levelStaticData.LevelEndpoint = GameObject.FindGameObjectWithTag(LevelEndpointTag).transform.position;
+
                 levelStaticData.StartColor = GameObject.FindGameObjectWithTag(InitialPlatformTag).GetComponent<MeshRenderer>().sharedMaterial.color;
                 levelStaticData.LevelName = SceneManager.GetActiveScene().name;
             }
-
+            
             EditorUtility.SetDirty(target);
         }
     }

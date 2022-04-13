@@ -6,6 +6,7 @@ namespace Assets.Scripts.UI.UIFactory
     {
         void CreateMainMenuWindow();
         void CreateShopWindow();
+        void CreateLevelCompletedWindow();
         Transform CreateUIRoot();
     }
 }

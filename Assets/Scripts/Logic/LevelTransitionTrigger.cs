@@ -1,5 +1,9 @@
 ﻿using Assets.Scripts.Hero;
 using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Infrastructure.StateMachine;
+using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.UI.UIFactory;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,11 +11,11 @@ namespace Assets.Scripts.Logic
 {
     public class LevelTransitionTrigger : MonoBehaviour
     {
-        private SceneLoader _sceneLoader;
+        private IUIFactory _uiFactory;
 
         [Inject]
-        public void Construct(SceneLoader sceneLoader) => 
-            _sceneLoader = sceneLoader;
+        public void Construct(IUIFactory uiFactory) => 
+            _uiFactory = uiFactory;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -19,9 +23,12 @@ namespace Assets.Scripts.Logic
 
             if (hero != null)
             {
-                _sceneLoader.Load("Level2");
                 Destroy(hero.gameObject);
+                LevelCompleted();
             }
         }
+
+        private void LevelCompleted() => 
+            _uiFactory.CreateLevelCompletedWindow();
     }
 }

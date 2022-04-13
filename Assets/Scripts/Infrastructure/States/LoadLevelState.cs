@@ -18,55 +18,56 @@ namespace Assets.Scripts.Infrastructure.States
         private readonly IUIFactory _uiFactory;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingScreen _loadingScreen;
-        private Transform _uiRoot;
 
-        public LoadLevelState(IGameStateMachine gameStateMachine, IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader, LoadingScreen loadingScreen)
+        public LoadLevelState(IGameStateMachine gameStateMachine, IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
         {
             _gameStateMachine = gameStateMachine;
             _gameFactory = gameFactory;
             _staticDataService = staticDataService;
             _uiFactory = uiFactory;
             _sceneLoader = sceneLoader;
-            _loadingScreen = loadingScreen;
         }
 
-        public void Enter(string sceneName)
-        {
-            _loadingScreen.Show();
+        public void Enter(string sceneName) => 
             _sceneLoader.Load(sceneName, OnLoaded);
-        }
 
-        public void Exit() =>
-            _loadingScreen.Hide();
+        public void Exit()
+        {
+            
+        }
 
         private void OnLoaded()
         {
             InitializeUIRoot();
             InitializeGameWorld();
-
-            _gameStateMachine.Enter<GameLoopState>();
         }
 
-        private void InitializeUIRoot()
-        {
-            if (_uiRoot != null) return;
-
-            _uiRoot = _uiFactory.CreateUIRoot();
-        }
+        private void InitializeUIRoot() => 
+            _uiFactory.CreateUIRoot();
 
         private void InitializeGameWorld()
         {
-            GameObject hero = InitializeHero();
+            LevelStaticData levelStaticData = LevelData();
+
+            GameObject hero = InitializeHero(levelStaticData);
+            InitializeLevelTransitionTrigger(levelStaticData);
             CameraFollow(hero);
+            EnterNextState(hero);
         }
 
-        private GameObject InitializeHero()
-        {
-            LevelStaticData levelStaticData = _staticDataService.LevelData(SceneManager.GetActiveScene().name);
-            return _gameFactory.CreateHero(levelStaticData.HeroInitialPoint);
-        }
+        private GameObject InitializeHero(LevelStaticData levelStaticData) =>
+            _gameFactory.CreateHero(levelStaticData.HeroInitialPoint);
 
-        private void CameraFollow(GameObject hero) => 
+        private void InitializeLevelTransitionTrigger(LevelStaticData levelStaticData) => 
+            _gameFactory.CreateLevelTransitionTrigger(levelStaticData.LevelEndpoint);
+
+        private void CameraFollow(GameObject hero) =>
             Camera.main.GetComponent<CameraFollow>().Target(hero);
+
+        private void EnterNextState(GameObject hero) => 
+            _gameStateMachine.Enter<GameLoopState, GameObject>(hero);
+
+        private LevelStaticData LevelData() =>
+            _staticDataService.LevelData(SceneManager.GetActiveScene().name);
     }
 }

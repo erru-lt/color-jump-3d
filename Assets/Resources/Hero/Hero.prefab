@@ -133,6 +133,7 @@ MonoBehaviour:
   _moveSpeed: 5.5
   _heroGroundCheck: {fileID: 1386408010312501375}
   _characterController: {fileID: 1319700276}
+  _animator: {fileID: 0}
 --- !u!114 &8228983749390009415
 MonoBehaviour:
   m_ObjectHideFlags: 0

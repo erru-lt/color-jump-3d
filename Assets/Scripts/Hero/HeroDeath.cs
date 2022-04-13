@@ -1,28 +1,34 @@
-﻿using Assets.Scripts.Infrastructure.StateMachine;
+﻿using Assets.Scripts.Infrastructure;
+using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Infrastructure.States;
+using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Platforms;
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Assets.Scripts.Hero
 {
     public class HeroDeath : MonoBehaviour
     {
+        public event Action OnDeath;
         private bool _isDeath;
 
         [SerializeField] private MeshRenderer _meshRenderer;
-        private IGameStateMachine _gameStateMachine;
+        private LoadingScreen _loadingScreen;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine) => 
-            _gameStateMachine = gameStateMachine;
+        public void Construct(LoadingScreen loadingScreen) => 
+            _loadingScreen = loadingScreen;
+
+        private void Start() => 
+            _loadingScreen.Hide();
 
         public void CheckColorMatch(MeshRenderer meshRenderer)
         {
             if (_meshRenderer.material.color != meshRenderer.material.color)
             {
-                RestartGame();
+                Die();
             }
         }
 
@@ -37,19 +43,11 @@ namespace Assets.Scripts.Hero
             }
         }
 
-        private void RestartGame()
-        {
-            Die();
-            ReloadScene();
-        }
-
         private void Die()
         {
             _isDeath = true;
+            OnDeath?.Invoke();
             Destroy(gameObject);
         }
-
-        private void ReloadScene() => 
-            _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name);
     }
 }

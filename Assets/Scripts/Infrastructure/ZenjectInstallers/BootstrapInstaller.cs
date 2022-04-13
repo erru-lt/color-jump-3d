@@ -6,7 +6,6 @@ using Assets.Scripts.Services.InputService;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.Services.WindowService;
 using Assets.Scripts.UI.UIFactory;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -18,6 +17,7 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 
         public override void InstallBindings()
         {
+            BindGameStateMachine();
             BindSceneLoader();
             BindInputService();
             BindAssetProviderService();
@@ -25,8 +25,6 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
             BindStaticDataService();
             BindWindowService();
             BindUIFactory();
-            BindGameStateMachine();
-            BindLoadingScreen();
         }
 
 
@@ -59,13 +57,6 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
             Container.Bind<IWindowService>().To<WindowService>().AsSingle();
 
         private void BindUIFactory() => 
-            Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();
-
-        private void BindLoadingScreen()
-        {
-            LoadingScreen loadingScreen = Container.InstantiatePrefabForComponent<LoadingScreen>(_loadingScreenPrefab);
-
-            Container.Bind<LoadingScreen>().FromInstance(loadingScreen).AsSingle();
-        }
+            Container.Bind<IUIFactory>().To<UIFactory>().AsSingle();       
     }
 }

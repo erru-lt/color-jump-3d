@@ -16,13 +16,14 @@ namespace Assets.Scripts.Infrastructure.StateMachine
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader, LoadingScreen loadingScreen)
+        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(LoadProgressState)] = new LoadProgressState(this),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, gameFactory, staticDataService, uiFactory, sceneLoader, loadingScreen),
-                [typeof(GameLoopState)] = new GameLoopState(),
+                [typeof(MenuState)] = new MenuState(uiFactory, sceneLoader, this),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, gameFactory, staticDataService, uiFactory, sceneLoader),
+                [typeof(GameLoopState)] = new GameLoopState(this),
             };
         }
 

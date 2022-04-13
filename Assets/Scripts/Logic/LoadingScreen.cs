@@ -8,15 +8,6 @@ namespace Assets.Scripts.Logic
         private readonly float _delay = 0.03f;
         [SerializeField] private CanvasGroup _canvas;
 
-        private void Awake() =>
-            DontDestroyOnLoad(this);
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
-            _canvas.alpha = 1.0f;
-        }
-
         public void Hide() =>
             StartCoroutine(FadeIn());
 
@@ -29,6 +20,6 @@ namespace Assets.Scripts.Logic
             }
 
             gameObject.SetActive(false);
-        }
+        }     
     }
 }

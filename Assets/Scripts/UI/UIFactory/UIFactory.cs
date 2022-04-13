@@ -1,6 +1,8 @@
 ﻿using Assets.Scripts.Infrastructure.AssetManagement;
+using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.StaticData.WindowStaticData;
+using Assets.Scripts.UI.Elements;
 using Assets.Scripts.UI.Window;
 using UnityEngine;
 using Zenject;
@@ -31,6 +33,12 @@ namespace Assets.Scripts.UI.UIFactory
         {
             WindowConfig shopWindowConfig = _staticDataService.WindowData(WindowID.Shop);
             ShopWindow shopWindow = Object.Instantiate(shopWindowConfig.WindowPrefab, _uiRoot) as ShopWindow;
+        }
+
+        public void CreateLevelCompletedWindow()
+        {
+            WindowConfig levelCompletedWindowConfig = _staticDataService.WindowData(WindowID.LevelCompleted);
+            LevelCompletedWindow levelCompletedWindow = Object.Instantiate(levelCompletedWindowConfig.WindowPrefab, _uiRoot) as LevelCompletedWindow;
         }
 
         public Transform CreateUIRoot()

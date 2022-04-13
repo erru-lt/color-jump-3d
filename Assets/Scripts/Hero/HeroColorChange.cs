@@ -61,6 +61,6 @@ namespace Assets.Scripts.Hero
             _meshRenderer.sharedMaterial.color = color;
 
         private LevelStaticData LevelData() =>
-            _staticDataService.LevelData(SceneManager.GetActiveScene().name);
+            _staticDataService.LevelData("Level1");
     }
 }
