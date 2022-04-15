@@ -1,23 +1,21 @@
-﻿using Assets.Scripts.Infrastructure.StateMachine;
-using Assets.Scripts.Infrastructure.States.StateInterfaces;
-using Assets.Scripts.Logic;
+﻿using Assets.Scripts.Infrastructure.States.StateInterfaces;
+using Assets.Scripts.Services.WindowService;
 using Assets.Scripts.UI.UIFactory;
-using UnityEngine;
+using Assets.Scripts.UI.Window;
 
 namespace Assets.Scripts.Infrastructure.States
 {
     public class MenuState : IPayloadedState<string>
     {
         private readonly IUIFactory _uiFactory;
-        private readonly LoadingScreen _loadingScreen;
+        private readonly IWindowService _windowService;
         private readonly SceneLoader _sceneLoader;
-        private readonly IGameStateMachine _gameStateMachine;
 
-        public MenuState(IUIFactory uiFactory, SceneLoader sceneLoader, IGameStateMachine gameStateMachine)
+        public MenuState(IUIFactory uiFactory, IWindowService windowService, SceneLoader sceneLoader)
         {
             _uiFactory = uiFactory;
-            _sceneLoader = sceneLoader; 
-            _gameStateMachine = gameStateMachine;
+            _windowService = windowService;
+            _sceneLoader = sceneLoader;
         }
 
         public void Enter(string sceneName) => 
@@ -34,8 +32,8 @@ namespace Assets.Scripts.Infrastructure.States
             InitializeMainMenu();
         }
 
-        private void InitializeMainMenu() => 
-            _uiFactory.CreateMainMenuWindow();
+        private void InitializeMainMenu() =>
+            _windowService.Open(WindowID.MainMenu);
 
         private void InitializeUIRoot() =>
             _uiFactory.CreateUIRoot();

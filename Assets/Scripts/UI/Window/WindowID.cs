@@ -3,7 +3,6 @@
     public enum WindowID
     {
         MainMenu,
-        Shop,
         LevelCompleted
     }
 }

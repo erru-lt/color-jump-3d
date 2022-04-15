@@ -15,10 +15,8 @@ namespace Assets.Scripts.UI.Elements
         private IGameStateMachine _gameStateMachine;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine)
-        {
+        public void Construct(IGameStateMachine gameStateMachine) => 
             _gameStateMachine = gameStateMachine;
-        }
 
         private void Awake() => 
             SelectLevelButton();
@@ -27,6 +25,6 @@ namespace Assets.Scripts.UI.Elements
             _selectLevelButton.onClick.AddListener(() => LoadLevel());
 
         private void LoadLevel() => 
-            _gameStateMachine.Enter<LoadLevelState, string>("Level1");
+            _gameStateMachine.Enter<LoadLevelState, string>(_levelName.name);
     }
 }

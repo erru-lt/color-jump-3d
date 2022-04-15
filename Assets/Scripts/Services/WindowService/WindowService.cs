@@ -20,8 +20,8 @@ namespace Assets.Scripts.Services.WindowService
                     _uiFactory.CreateMainMenuWindow();
                     break;
 
-                case WindowID.Shop:
-                    _uiFactory.CreateShopWindow();
+                case WindowID.LevelCompleted:
+                    _uiFactory.CreateLevelCompletedWindow();
                     break;
             }
         }

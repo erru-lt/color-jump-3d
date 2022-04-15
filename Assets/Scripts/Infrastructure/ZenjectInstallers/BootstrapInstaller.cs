@@ -6,15 +6,12 @@ using Assets.Scripts.Services.InputService;
 using Assets.Scripts.Services.StaticDataService;
 using Assets.Scripts.Services.WindowService;
 using Assets.Scripts.UI.UIFactory;
-using UnityEngine;
 using Zenject;
 
 namespace Assets.Scripts.Infrastructure.ZenjectInstallers
 {
     public class BootstrapInstaller : MonoInstaller, ICoroutineRunner
     {
-        [SerializeField] private LoadingScreen _loadingScreenPrefab;
-
         public override void InstallBindings()
         {
             BindGameStateMachine();

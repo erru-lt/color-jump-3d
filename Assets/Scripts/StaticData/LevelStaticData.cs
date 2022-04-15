@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.StaticData
 {
@@ -9,6 +10,6 @@ namespace Assets.Scripts.StaticData
         public Vector3 HeroInitialPoint;
         public Vector3 LevelEndpoint;
         public Color StartColor;
-        public Color[] PlatformColors;
+        public List<Color> PlatformColors;
     }
 }

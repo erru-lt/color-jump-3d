@@ -36,7 +36,7 @@ namespace Assets.Scripts.Hero
         private void Start()
         {
             _heroGroundCheck.Landed += ResetJumpCount;
-            SetupJumpVariables();
+            JumpVariables();
         }
 
         private void Update()
@@ -117,7 +117,7 @@ namespace Assets.Scripts.Hero
         private bool CanJump() =>
             _characterController.isGrounded;
 
-        private void SetupJumpVariables()
+        private void JumpVariables()
         {
             _jumpCount = _jumpCountMax;
 

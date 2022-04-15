@@ -1,5 +1,4 @@
-﻿
-using Assets.Scripts.StaticData;
+﻿using Assets.Scripts.StaticData;
 using Assets.Scripts.StaticData.WindowStaticData;
 using Assets.Scripts.UI.Window;
 

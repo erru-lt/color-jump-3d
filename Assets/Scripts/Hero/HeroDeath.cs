@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Infrastructure;
-using Assets.Scripts.Infrastructure.StateMachine;
-using Assets.Scripts.Infrastructure.States;
-using Assets.Scripts.Logic;
+﻿using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Platforms;
 using System;
 using UnityEngine;

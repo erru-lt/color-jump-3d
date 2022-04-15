@@ -11,11 +11,8 @@ namespace Assets.Scripts.Infrastructure.States
         public LoadProgressState(IGameStateMachine gameStateMachine) => 
             _gameStateMachine = gameStateMachine;
 
-        public void Enter()
-        {
-            LoadProgress();
+        public void Enter() => 
             _gameStateMachine.Enter<MenuState, string>(MenuScene);
-        }
 
         private void LoadProgress()
         {

@@ -1,8 +1,8 @@
 ﻿using Assets.Scripts.Infrastructure.Factory;
 using Assets.Scripts.Infrastructure.States;
 using Assets.Scripts.Infrastructure.States.StateInterfaces;
-using Assets.Scripts.Logic;
 using Assets.Scripts.Services.StaticDataService;
+using Assets.Scripts.Services.WindowService;
 using Assets.Scripts.UI.UIFactory;
 using System;
 using System.Collections.Generic;
@@ -16,12 +16,12 @@ namespace Assets.Scripts.Infrastructure.StateMachine
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
+        public GameStateMachine(IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, IWindowService windowService, SceneLoader sceneLoader)
         {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(LoadProgressState)] = new LoadProgressState(this),
-                [typeof(MenuState)] = new MenuState(uiFactory, sceneLoader, this),
+                [typeof(MenuState)] = new MenuState(uiFactory, windowService, sceneLoader),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, gameFactory, staticDataService, uiFactory, sceneLoader),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
@@ -30,14 +30,12 @@ namespace Assets.Scripts.Infrastructure.StateMachine
         public void Enter<TState>() where TState : class, IState
         {
             TState state = ChangeState<TState>();
-
             state.Enter();
         }
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadedState<TPayload>
         {
             TState state = ChangeState<TState>();
-
             state.Enter(payload);
         }
 

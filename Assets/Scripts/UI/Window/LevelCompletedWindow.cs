@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Infrastructure.StateMachine;
 using Assets.Scripts.Infrastructure.States;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +10,7 @@ namespace Assets.Scripts.UI.Window
     public class LevelCompletedWindow : WindowBase
     {
         private const string MenuScene = "Menu";
+        private const string Level2 = "Level2";
 
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _reloadLevelButton;
@@ -44,6 +44,6 @@ namespace Assets.Scripts.UI.Window
             _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name);
 
         private void LoadNextLevel() => 
-            _gameStateMachine.Enter<LoadLevelState, string>("Level2");
+            _gameStateMachine.Enter<LoadLevelState, string>(Level2);
     }
 }

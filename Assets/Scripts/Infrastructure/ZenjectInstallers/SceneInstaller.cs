@@ -8,11 +8,10 @@ namespace Assets.Scripts.Infrastructure.ZenjectInstallers
     {
         [SerializeField] private LoadingScreen _loadingScreen;
 
-        public override void InstallBindings()
-        {
+        public override void InstallBindings() => 
+            BindLoadingScreen();
+
+        private void BindLoadingScreen() => 
             Container.BindInstance(_loadingScreen);
-            //LoadingScreen loadingScreen = Container.InstantiatePrefabForComponent<LoadingScreen>(_loadingScreen);
-            //Container.Bind<LoadingScreen>().FromInstance(loadingScreen).AsSingle();
-        }
     }
 }

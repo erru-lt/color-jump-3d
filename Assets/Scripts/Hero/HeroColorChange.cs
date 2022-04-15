@@ -11,7 +11,6 @@ namespace Assets.Scripts.Hero
     public class HeroColorChange : MonoBehaviour
     {
         [SerializeField] private MeshRenderer _meshRenderer;
-
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
 
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Hero
         {
             LevelStaticData levelStaticData = LevelData();
 
-            for (int i = 0; i < levelStaticData.PlatformColors.Length; i++)
+            for (int i = 0; i < levelStaticData.PlatformColors.Count; i++)
             {
                 if(_meshRenderer.sharedMaterial.color != levelStaticData.PlatformColors[i])
                 {
@@ -61,6 +60,6 @@ namespace Assets.Scripts.Hero
             _meshRenderer.sharedMaterial.color = color;
 
         private LevelStaticData LevelData() =>
-            _staticDataService.LevelData("Level1");
+            _staticDataService.LevelData(SceneManager.GetActiveScene().name);
     }
 }

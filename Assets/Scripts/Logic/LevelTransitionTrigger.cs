@@ -1,9 +1,6 @@
 ﻿using Assets.Scripts.Hero;
-using Assets.Scripts.Infrastructure;
-using Assets.Scripts.Infrastructure.StateMachine;
-using Assets.Scripts.Infrastructure.States;
-using Assets.Scripts.UI.UIFactory;
-using System;
+using Assets.Scripts.Services.WindowService;
+using Assets.Scripts.UI.Window;
 using UnityEngine;
 using Zenject;
 
@@ -11,11 +8,11 @@ namespace Assets.Scripts.Logic
 {
     public class LevelTransitionTrigger : MonoBehaviour
     {
-        private IUIFactory _uiFactory;
+        private IWindowService _windowService;
 
         [Inject]
-        public void Construct(IUIFactory uiFactory) => 
-            _uiFactory = uiFactory;
+        public void Construct(IWindowService windowService) => 
+            _windowService = windowService;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -29,6 +26,6 @@ namespace Assets.Scripts.Logic
         }
 
         private void LevelCompleted() => 
-            _uiFactory.CreateLevelCompletedWindow();
+            _windowService.Open(WindowID.LevelCompleted);
     }
 }

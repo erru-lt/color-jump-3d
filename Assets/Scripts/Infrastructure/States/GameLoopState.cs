@@ -19,6 +19,7 @@ namespace Assets.Scripts.Infrastructure.States
             _hero = hero;
             SubscribeOnHero(_hero);            
         }
+
         public void Exit() => 
             UnsubscribeOnHero(_hero);
 
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Infrastructure.States
                 heroDeath.OnDeath += OnHeroDeath;
             }
         }
+
         private void UnsubscribeOnHero(GameObject hero)
         {
             if (IsHero(hero, out HeroDeath heroDeath))

@@ -15,6 +15,5 @@ namespace Assets.Scripts.Infrastructure
 
         private void Awake() => 
             _gameStateMachine.Enter<LoadProgressState>();
-
     }
 }
