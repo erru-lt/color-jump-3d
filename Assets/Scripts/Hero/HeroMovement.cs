@@ -25,6 +25,8 @@ namespace Assets.Scripts.Hero
 
         private bool _isJumping;
 
+        [SerializeField] private HeroDeath _heroDeath;
+        [SerializeField] private HeroVFX _heroVFX;
         [SerializeField] private HeroGroundCheck _heroGroundCheck;
         [SerializeField] private CharacterController _characterController;
         private IInputService _inputService;
@@ -37,11 +39,16 @@ namespace Assets.Scripts.Hero
         {
             _heroGroundCheck.Landed += ResetJumpCount;
             JumpVariables();
+            PlayRunParticle();
         }
 
         private void Update()
         {
-            Movement();
+            if (HeroIsDeath() == false)
+            {
+                Movement();
+            }
+
             DoubleJump();
         }
 
@@ -51,7 +58,7 @@ namespace Assets.Scripts.Hero
 
             _yDirection += _gravity * Time.deltaTime;
 
-            if (CanJump())
+            if (IsGrounded())
             {
                 _yDirection = _groundedGravity;
                 _moveDirection = transform.forward.z;
@@ -114,8 +121,14 @@ namespace Assets.Scripts.Hero
         private void ReduceJumpCount() =>
             _jumpCount--;
 
-        private bool CanJump() =>
+        private bool IsGrounded() =>
             _characterController.isGrounded;
+
+        private void PlayRunParticle() => 
+            _heroVFX.PlayRunParticle();
+
+        private bool HeroIsDeath() =>
+            _heroDeath.IsDeath;
 
         private void JumpVariables()
         {

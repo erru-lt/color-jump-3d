@@ -4,32 +4,24 @@ namespace Assets.Scripts.Hero
 {
     public class HeroVFX : MonoBehaviour
     {
+        [SerializeField] private ParticleSystem _swapParticle;
         [SerializeField] private ParticleSystem _runParticle;
-        [SerializeField] private ParticleSystem _landParticle;
         [SerializeField] private MeshRenderer _meshRenderer;
 
+        public void PlaySwapParticle() => 
+            _swapParticle.Play();
+
         public void PlayRunParticle() => 
-            _runParticle.Play();
+            _runParticle.gameObject.SetActive(true);
 
         public void StopRunParticle() => 
-            _runParticle.Stop();
+            _runParticle.gameObject.SetActive(false);
 
-        public void PlayLandParticle()
+        private void LandParticleColor()
         {
-            LandParticleColor();
-            _landParticle.Play();
-        }
-
-        private void RunParticleColor() => 
-            ParticleColor(_runParticle);
-
-        private void LandParticleColor() => 
-            ParticleColor(_landParticle);
-
-        private void ParticleColor(ParticleSystem particle)
-        {
-            ParticleSystem.MainModule particleSettings = particle.main;
+            ParticleSystem.MainModule particleSettings = _runParticle.main;
             particleSettings.startColor = new ParticleSystem.MinMaxGradient(_meshRenderer.sharedMaterial.color);
         }
+            
     }
 }

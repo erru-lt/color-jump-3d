@@ -18,6 +18,12 @@ namespace Assets.Scripts.Infrastructure.Factory
             return Object.Instantiate(heroPrefab, position, Quaternion.identity, null);
         }
 
+        public void CreateHud()
+        {
+            GameObject hudPrefab = _assetProvider.LoadPrefab(AssetPath.HudPath);
+            Object.Instantiate(hudPrefab);
+        }
+
         public void CreateLevelTransitionTrigger(Vector3 position)
         {
             GameObject levelTransitionTriggerPrefab = _assetProvider.LoadPrefab(AssetPath.LevelTransitionTriggerPath);

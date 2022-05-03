@@ -17,7 +17,6 @@ namespace Assets.Scripts.Infrastructure.States
         private readonly IStaticDataService _staticDataService;
         private readonly IUIFactory _uiFactory;
         private readonly SceneLoader _sceneLoader;
-        private readonly LoadingScreen _loadingScreen;
 
         public LoadLevelState(IGameStateMachine gameStateMachine, IGameFactory gameFactory, IStaticDataService staticDataService, IUIFactory uiFactory, SceneLoader sceneLoader)
         {
@@ -50,6 +49,7 @@ namespace Assets.Scripts.Infrastructure.States
             LevelStaticData levelStaticData = LevelData();
 
             GameObject hero = InitializeHero(levelStaticData);
+            InitializeHud();
             InitializeLevelTransitionTrigger(levelStaticData);
             CameraFollow(hero);
             EnterNextState(hero);
@@ -57,6 +57,9 @@ namespace Assets.Scripts.Infrastructure.States
 
         private GameObject InitializeHero(LevelStaticData levelStaticData) =>
             _gameFactory.CreateHero(levelStaticData.HeroInitialPoint);
+
+        private void InitializeHud() => 
+            _gameFactory.CreateHud();
 
         private void InitializeLevelTransitionTrigger(LevelStaticData levelStaticData) => 
             _gameFactory.CreateLevelTransitionTrigger(levelStaticData.LevelEndpoint);

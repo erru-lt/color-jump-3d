@@ -7,6 +7,7 @@
         public const string PlatformPrefabPath = "Platforms/Platform";
         public const string LevelTransitionTriggerPath = "SceneObjects/LevelTransitionTrigger";
 
+        public const string HudPath = "UI/HUD";
         public const string UIRootPath = "UI/UIRoot";
         public const string ShopWindowPath = "UI/Window/ShopWindow";
         public const string MainMenuWindow = "UI/Window/MainMenuWindow";

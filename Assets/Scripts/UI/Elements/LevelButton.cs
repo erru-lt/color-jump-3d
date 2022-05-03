@@ -25,6 +25,6 @@ namespace Assets.Scripts.UI.Elements
             _selectLevelButton.onClick.AddListener(() => LoadLevel());
 
         private void LoadLevel() => 
-            _gameStateMachine.Enter<LoadLevelState, string>(_levelName.name);
+            _gameStateMachine.Enter<LoadLevelState, string>("Level1");
     }
 }

@@ -17,14 +17,19 @@ namespace Assets.Scripts.Infrastructure.States
         public void Enter(GameObject hero)
         {
             _hero = hero;
-            SubscribeOnHero(_hero);            
+            SubscribeOnHero(_hero);
         }
 
-        public void Exit() => 
-            UnsubscribeOnHero(_hero);
+        public void Exit()
+        {
 
-        private void OnHeroDeath() => 
+        }
+
+        private void OnHeroDeath()
+        {
             ReloadCurrentScene();
+            UnsubscribeOnHero(_hero);
+        }
 
         private void SubscribeOnHero(GameObject hero)
         {
@@ -45,7 +50,7 @@ namespace Assets.Scripts.Infrastructure.States
         private bool IsHero(GameObject hero, out HeroDeath heroDeath) =>
             hero.TryGetComponent<HeroDeath>(out heroDeath);
 
-        private void ReloadCurrentScene() => 
+        private void ReloadCurrentScene() =>
             _gameStateMachine.Enter<LoadLevelState, string>(SceneManager.GetActiveScene().name);
     }
 }

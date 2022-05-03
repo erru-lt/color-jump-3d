@@ -10,6 +10,8 @@ namespace Assets.Scripts.Hero
 {
     public class HeroColorChange : MonoBehaviour
     {
+        [SerializeField] private HeroVFX _heroVFX;
+        [SerializeField] private HeroAnimator _heroAnimator;
         [SerializeField] private MeshRenderer _meshRenderer;
         private IStaticDataService _staticDataService;
         private IInputService _inputService;
@@ -31,6 +33,8 @@ namespace Assets.Scripts.Hero
         {
             if(_inputService.IsColorChangeButtonDown())
             {
+                _heroAnimator.PlayColorChange();
+                _heroVFX.PlaySwapParticle();
                 ChangeHeroColor();
             }
         }

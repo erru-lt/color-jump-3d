@@ -39,6 +39,7 @@ namespace Assets.Scripts.Editor
 
         private static void ColorsList(LevelStaticData levelStaticData, List<Color> colors)
         {
+            colors.Clear();
             int index = 0;
             foreach (Color color in colors)
             {

@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private Transform _targetToFollow;
 
-    private void LateUpdate()
+    private void Update()
     {
         if (_targetToFollow == null) return;
 
@@ -27,8 +27,7 @@ public class CameraFollow : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(_rotationAngleX, _rotationAngleY, 0.0f);
         Vector3 position = rotation * new Vector3(0f, 0.0f, -_zOffset) + TargetPosition();
 
-        transform.rotation = rotation;
-        transform.position = position;
+        transform.SetPositionAndRotation(position, rotation);
     }
 
     private Vector3 TargetPosition()

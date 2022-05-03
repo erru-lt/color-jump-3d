@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Logic;
 using Assets.Scripts.Logic.Platforms;
 using System;
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -9,8 +10,14 @@ namespace Assets.Scripts.Hero
     public class HeroDeath : MonoBehaviour
     {
         public event Action OnDeath;
+
+        public bool IsDeath => _isDeath;
         private bool _isDeath;
 
+        [SerializeField] private HeroMovement _heroMovement;
+        [SerializeField] private HeroAnimator _animator;
+        [SerializeField] private HeroExplosion _heroExplosion;
+        [SerializeField] private HeroVFX _heroVFX;
         [SerializeField] private MeshRenderer _meshRenderer;
         private LoadingScreen _loadingScreen;
 
@@ -25,7 +32,7 @@ namespace Assets.Scripts.Hero
         {
             if (_meshRenderer.material.color != meshRenderer.material.color)
             {
-                Die();
+                _animator.PlayDeath();
             }
         }
 
@@ -40,11 +47,24 @@ namespace Assets.Scripts.Hero
             }
         }
 
-        private void Die()
+        private void OnDeathAnimationStart()
         {
             _isDeath = true;
+            _loadingScreen.Show();
+            Explode();
+            StopRunParticle();
+        }
+
+        private void OnDeathAnimationEnd()
+        {
             OnDeath?.Invoke();
             Destroy(gameObject);
         }
+
+        private void StopRunParticle() => 
+            _heroVFX.StopRunParticle();
+
+        private void Explode() => 
+            _heroExplosion.CreateCubes();
     }
 }
